@@ -36,26 +36,32 @@ function drawSpiral(context, startAngle) {
     context.beginPath();
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.translate(xc, yc);
-    context.rotate(startAngle);
-    context.moveTo(0,0);
-    const a = 1;
-    const b = 10;
-    for (let angle = 0 ; ; angle += 1*(2*Math.PI)/360 )
-    {
-        let x = ((a + b*angle)*Math.cos(angle));
-        let y = ((a + b*angle)*Math.sin(angle));
-        context.lineTo(x,y);
 
-        let r = Math.sqrt((x**2) + (y**2));
-        if (r > rmax)
-            break;
+    //let colours = [ "#FF0000", "#00FF00", "#0000FF" ];
+    let colours = [ "#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000" ];
+    for (let step = 0 ; step < colours.length ; step++)
+    {
+        let colour = colours[step];
+        let theta = startAngle + (step * (2*Math.PI)/colours.length);
+        context.rotate(theta);        
+        context.moveTo(0,0);
+        context.beginPath();
+        context.strokeStyle = colour;
+        context.lineWidth = 10;
+        const a = 1;
+        const b = 10;
+        for (let angle = 0 ; ; angle += 1*(2*Math.PI)/360 )
+        {
+            let x = ((a + b*angle)*Math.cos(angle));
+            let y = ((a + b*angle)*Math.sin(angle));
+            context.lineTo(x,y);
+
+            let r = Math.sqrt((x**2) + (y**2));
+            if (r > rmax)
+                break;
+        }
+        context.stroke();
+        context.rotate(-theta);
     }
-    context.strokeStyle = "#FFFFFF";
-    context.lineWidth = 20;
-    context.stroke();
-    // context.moveTo(0,0);
-    // context.lineTo(xc,yc);
-    // context.stroke();
-    context.rotate(-startAngle);
     context.translate(-xc, -yc);
 }
