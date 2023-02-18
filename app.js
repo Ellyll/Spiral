@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
-    maximiseCanvas(context.canvas);
+    maximiseCanvas(canvas);
+    addEventListener('resize', () => maximiseCanvas(canvas));
 
     draw(context, 0);
 });
@@ -37,7 +38,6 @@ function drawSpiral(context, startAngle) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.translate(xc, yc);
 
-    //let colours = [ "#FF0000", "#00FF00", "#0000FF" ];
     let colours = [ "#9400D3", "#4B0082", "#0000FF", "#00FF00", "#FFFF00", "#FF7F00", "#FF0000" ];
     for (let step = 0 ; step < colours.length ; step++)
     {
